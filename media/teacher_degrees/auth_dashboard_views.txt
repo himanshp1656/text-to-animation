@@ -1,0 +1,114 @@
+from datetime import datetime, date, timedelta
+from django.db.models import Sum
+@login_required
+def dashboard(request):
+    start_date_str = request.GET.get('start_date')
+    end_date_str = request.GET.get('end_date')
+
+    if start_date_str is None or end_date_str is None:
+        # If no date range is selected, show today's data
+        current_date = date.today()
+        start_date = datetime.combine(current_date, datetime.min.time())
+        end_date = datetime.combine(current_date, datetime.max.time())
+    else:
+        try:
+            # Convert the date strings to datetime objects
+            start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
+            end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date() + timedelta(days=1)
+        except ValueError:
+            # Handle the case when date strings are not in the correct format
+            return JsonResponse({'error': 'Invalid date format'}, status=400)
+    orders=Order.objects.filter(status = "new",datetime__range=(start_date, end_date)).count()
+    SDD=Shipment.objects.filter(courier = "SDD" ,datetime__range=(start_date, end_date)).count()
+    NDD=Shipment.objects.filter(courier = "NDD",datetime__range=(start_date, end_date) ).count()
+    rts = Shipment.objects.filter(status = "Ready To Ship",datetime__range=(start_date, end_date)).count()
+    ofd = Shipment.objects.filter(status = "Out For Delivery",datetime__range=(start_date, end_date)).count()
+    RToP = Shipment.objects.filter(status = "Ready To Pick",datetime__range=(start_date, end_date)).count()
+    PickedUp = Shipment.objects.filter(status = "PickedUp",datetime__range=(start_date, end_date)).count()
+    atstation = Shipment.objects.filter(status = "InTransit",datetime__range=(start_date, end_date)).count()
+    amount = RechargeHistory.objects.filter(datetime__range=(start_date, end_date)).aggregate(total_amount=Sum('amount'))['total_amount'] or 0
+    totaluser = User.objects.filter(is_staff = False).count()
+    # totalstaff= Shipment.objects.filter(status = "InTransit").count()
+    
+    total_delivered = Shipment.objects.filter(status = "Delivered",datetime__range=(start_date, end_date)).count()
+    total_rto = Shipment.objects.filter(status = "RTO",datetime__range=(start_date, end_date)).count()
+    new_shipment = Order.objects.filter(status = "new",datetime__range=(start_date, end_date)).count()
+    rto_shipment = Shipment.objects.filter(rto_marked = True,datetime__range=(start_date, end_date)).count()
+   
+    
+    returns=Returns.objects.filter(created_by = request.user,datetime__range=(start_date, end_date)).count()
+    register=Register.objects.count()
+    data = {}
+    data['orders'] = orders
+    data['new_shipment'] = new_shipment
+    data['rto_shipment'] = rto_shipment
+    data['rts'] = rts
+    data['ofd'] = ofd
+    data['total_rto'] = total_rto
+    data['RToP'] = RToP
+    data['PickedUp'] = PickedUp
+    data['atstation'] = atstation
+    data['total_delivered'] = total_delivered
+    data['SDD'] = SDD
+    data['NDD'] = NDD
+    data['returns'] = returns
+    data['register'] = register
+    data['totaluser'] = totaluser
+    data['amount'] = amount
+    data['start_date_str'] = start_date
+    data['end_date_str'] = end_date
+    print(data)
+    return render(request, 'dashboard.html', data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@login_required
+def Index(request):
+	start_date_str = request.GET.get('start_date')
+	end_date_str = request.GET.get('end_date')
+	print(start_date_str)
+	if start_date_str is None or end_date_str is None:
+		current_date = date.today()
+		start_date = datetime.combine(current_date, datetime.min.time())
+		end_date = datetime.combine(current_date, datetime.max.time())
+	else:
+		try:
+			start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
+			end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date() + timedelta(days=1)
+		except ValueError:
+			return JsonResponse({'error': 'Invalid date format'}, status=400)
+	user=request.user
+	new_shipment = Order.objects.filter(status = "new",datetime__range=(start_date, end_date)).filter(created_by=request.user).count()
+	rto_shipment = Shipment.objects.filter(rto_marked = True,datetime__range=(start_date, end_date)).filter(created_by=request.user).count()
+	total_rts = Shipment.objects.filter(status = "Ready to Ship",datetime__range=(start_date, end_date)).filter(created_by=request.user).count()
+	total_delivered = Shipment.objects.filter(status = "Delivered",datetime__range=(start_date, end_date)).filter(created_by=request.user).count()
+	wallet = Wallet.objects.get(user=request.user)
+	shipment=Shipment.objects.filter(status = "Delivered" ,datetime__range=(start_date, end_date)).filter(created_by = request.user).order_by('-id')
+	returns=Returns.objects.filter(created_by = request.user,datetime__range=(start_date, end_date)).count()
+	register=Register.objects.get(created_by = request.user)
+	sdd_value=Shipment.objects.filter(courier = "SDD" ,datetime__range=(start_date, end_date)).count()
+	ndd_value=Shipment.objects.filter(courier = "NDD",datetime__range=(start_date, end_date) ).count()
+	total_order= sdd_value + ndd_value
+	shopify_inventory_count = Product.objects.filter(source__icontains='shopify', created_by=user).count()
+	direct_inventory_count = Product.objects.filter(source__icontains='direct', created_by=user).count()
+	flipkart_inventory_count = Product.objects.filter(source__icontains='flipkart', created_by=user).count()
+	myntra_inventory_count = Product.objects.filter(source__icontains='myntra', created_by=user).count()
+	return render(request,'main/index.html', {'total_order':total_order,'total_rts': total_rts, 'total_delivered': total_delivered, 'wallet_balance': wallet.balance, 'new_shipment': new_shipment, 'rto_shipment': rto_shipment, 'shipment':shipment, 'returns':returns, 'register':register , 'sdd_value':sdd_value,'ndd_value':ndd_value , 'inventory_management':shopify_inventory_count,'direct_inventory_count':direct_inventory_count,'flipkart_inventory_count':flipkart_inventory_count,'myntra_inventory_count':myntra_inventory_count,'start_date_str':start_date,'end_date_str':end_date})
+#

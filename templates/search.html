@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>search teacher</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <script src="https://kit.fontawesome.com/fa2575a81c.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-image: radial-gradient(#FAB2FF 30%, #1a04e5b5 70%);
+    }
+    .search input {
+        background-color: #fff;
+        width: 100%;
+        max-width: 400px;
+        height: 30px;
+        padding: 5px 10px;
+        border-radius: 10px;
+        /* border-image:  */
+    }
+
+    .search input:hover {
+        opacity: 1.5;
+    }
+
+    .search button {
+        all: unset;
+        padding: 7px 15px;
+        background-color: blue;
+        color: white;
+        border-radius: 20px;
+    }
+
+    .search button:hover {
+        cursor: pointer;
+    }
+
+    .search button:active {
+        transform: scale(1.1);
+    }
+
+    .navbar {
+        height: 5rem;
+        background-color: rgba(255, 255, 255, 0.726);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-right: 2rem;
+    }
+
+    ul {
+        all: unset;
+        display: flex;
+        justify-content: flex-start;
+        gap: 2rem;
+        list-style: none;
+        color: black;
+        margin: 0;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    a {
+        all: unset;
+    }
+
+    a:hover {
+        cursor: pointer;
+        border-bottom: 2px solid black;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+        color: white;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        background-color: #1a04e57c;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* .right {
+        width: 100%;
+        max-width: 450px;
+        height: 600px;
+        overflow-y: scroll;
+        scroll-margin: 60px;
+        background-color: rgb(56, 56, 56);
+    } */
+    .right {
+position: fixed;
+top: 50px; /* Adjust as needed, this is the distance from the top */
+right: 10px;
+bottom: 10px; /* Adjust as needed, this is the distance from the bottom */
+width: 450px;
+overflow-y: scroll;
+scroll-margin: 60px;
+background-color: rgb(56, 56, 56);
+}
+
+
+
+    .icons {
+        display: flex;
+        gap: 15px;
+        margin-left: 2rem;
+    }
+
+    #chat-form {
+        position: fixed;
+        bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+    }
+
+    #chat-form input {
+        background-color: whitesmoke;
+        width: 100%;
+        height: 30px;
+        padding: 5px 10px;
+        border-radius: 20px;
+        border: none;
+    }
+
+    form button {
+        color: #70F570;
+        background-color: transparent;
+        font-size: 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    #chat-output {
+        color: white;
+        padding: 10px 15px;
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+
+    @media only screen and (min-width: 768px) {
+        .main {
+            flex-direction: row;
+        }
+
+        .right {
+            position: static;
+            width: 60vw;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .navbar {
+            padding-right: 1rem;
+        }
+
+        .main {
+            padding: 10px;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="navbar">
+        <nav>
+            <ul>
+                <li>
+                    <a href="/">home</a>
+                </li>
+                <li>
+                    <a href="/search/">search teacher</a>
+                </li>
+                <li>
+                    <a href="/roadmap/">roadmap</a>
+                </li>
+                <li>
+                    <a href="/teachersubmit">become a teacher</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+<div class="nav">
+    <nav>
+        <form action="/search/" method="post">
+        {% csrf_token %}
+
+        <div class="header">
+            <div class="search">
+                <input id="search"  name="search" type="text">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i>  search</button>
+            </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+<div class="main">
+    <div class="left">
+        <div class="cards">
+            {% for teacher in teacherlist %}
+            <div class="card animate__animated animate__slideInDown">
+					<div class="name">
+                        <h3 style="color: rgb(24, 179, 240);">{{ teacher.name }}</h3>
+                        <h4 style="color: #1e1c1cd7;">{{ teacher.email }}</h3>
+                    </div>
+                    <!-- <div class="email">12345@gmail.com</div> -->
+                    <div class="data">
+                        <div class="img">
+                            <div class="profile-image">
+                                <a href="{{ teacher.url }}"><img src="{{ teacher.profile_image }}" alt="{{ teacher.name }}" loading="lazy" style='border-radius: 50%;'></a>
+                            </div>
+                        </div>
+                        <div class="bio">
+                            {{ teacher.description }}
+                           </div>
+                    </div>
+                    <div class="icons">
+                        <div class="icon">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <h4>{{ teacher.location }}</h4>
+                        </div>
+                        
+                        <div class="icon">
+                            <!-- <i class="fa-solid fa-map-location-dot"></i> -->
+                            {% comment %} <i class="fa-solid fa-dollar-sign"></i> {% endcomment %}
+                            <h4>{{ teacher.charge }}</h4>
+                        </div>
+                        
+                        <div class="icon">
+                            <i class="fa-solid fa-laptop"></i>
+                            <!-- <i class="fa-solid fa-map-location-dot"></i> -->
+                            <h4>{{ teacher.online }}</h4>
+                        </div>
+                        
+                        <div class="icon">
+                            <!-- <i class="fa-solid fa-map-location-dot"></i> -->
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                            <h4>{{ teacher.total }}</h4>
+                        </div>
+                    </div>
+				</div>
+                {% endfor %}
+			</div>
+		</div>
+		{% comment %} <div class="right">
+            <div class="data">
+                <div id="chat-output"></div>
+            <form id="chat-form">
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button type="submit"><i class="fa-solid fa-paper-plane" ></i></button>
+            </form> {% endcomment %}
+           <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.querySelector('#chat-form');
+                const userInput = document.querySelector('#user-input');
+                const chatOutput = document.querySelector('#chat-output');
+            
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const inputText = userInput.value.trim();
+                    if (inputText === '') return;
+            
+                    // Send user input to the Django view
+                    fetch(`/chat_with_gpt/?user_input=${encodeURIComponent(inputText)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const responseText = data.response;
+                            chatOutput.innerHTML += `<p><strong>You:</strong> ${inputText}</p>`;
+                            chatOutput.innerHTML += `<p><strong>BOT:</strong> ${responseText}</p>`;
+                            userInput.value = '';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            });
+            </script>
+
+
+
+
+            </div>
+            <!-- <div class="data_input">
+                <input type="text">
+                <button><i class="fa-solid fa-paper-plane"></i></button>
+            </div> -->
+
+		</div>
+	</div>
+</body>
+</html>

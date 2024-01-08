@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>roadmap</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* Basic styling for the search page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            max-height: 100px;
+            
+        }
+
+        header {
+            background-color: #ae75b9;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .background{
+            background-image: url("{% static 'images/background.png' %}");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+        }
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            height: 100%;
+        }
+
+        /* Styling for the search bar */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 60px;
+            
+        }
+
+        .search-input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-button {
+            background-color: #64397c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #555;
+        }
+
+        /* CSS animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .data{
+            background-color: rgba(255, 255, 255, 0.381);
+            overflow: auto;
+            width: 80vw;
+            height: auto;
+            font-size: 20px;
+            padding: 20px;
+        }
+        .navbar {
+            height: 5rem;
+            background-color: rgba(255, 255, 255, 0.726);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-right: 2rem;
+        }
+
+        ul {
+            all: unset;
+            display: flex;
+            justify-content: flex-start;
+            gap: 2rem;
+            list-style: none;
+            color: black;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            all: unset;
+        }   
+
+        a:hover {
+            cursor: pointer;
+            border-bottom: 2px solid black;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <nav>
+            <ul>
+                <li>
+                    <a href="/">home</a>
+                </li>
+                <li>
+                    <a href="/search/">search teacher</a>
+                </li>
+                <li>
+                    <a href="/roadmap/">roadmap</a>
+                </li>
+                <li>
+                    <a href="/teachersubmit">become a teacher</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="background">
+        <div class="container">
+            <form action="/roadmap/" method="post">
+            <div class="search-container">
+                {% csrf_token %}
+                <input type="text" name="inp" class="search-input" id="searchInput" placeholder="Search your path...">
+                <button class="search-button" id="searchButton">Search</button>
+            </form>
+            </div>
+            <div class="data">
+                {{response|safe}}
+            </div>
+        </div>
+
+    <script>
+        // JavaScript for animations
+        const searchInput = document.getElementById("searchInput");
+        const searchButton = document.getElementById("searchButton");
+
+        searchButton.addEventListener("click", function() {
+            // Add the "fade-in" class to the search input to animate it
+            searchInput.classList.add("fade-in");
+        });
+    </script>
+</div>
+</body>
+</html>

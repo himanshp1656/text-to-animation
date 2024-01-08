@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ai chatbot</title>
+</head>
+<body>
+    <form id="chat-form">
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button type="submit">Send</button>
+    </form>
+    <div id="chat-output"></div>
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('#chat-form');
+        const userInput = document.querySelector('#user-input');
+        const chatOutput = document.querySelector('#chat-output');
+    
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const inputText = userInput.value.trim();
+            if (inputText === '') return;
+    
+            // Send user input to the Django view
+            fetch(`/chat_with_gpt/?user_input=${encodeURIComponent(inputText)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const responseText = data.response;
+                    chatOutput.innerHTML += `<p><strong>You:</strong> ${inputText}</p>`;
+                    chatOutput.innerHTML += `<p><strong>BOT:</strong> ${responseText}</p>`;
+                    userInput.value = '';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    });
+</script>
+</body>
+</html>
