@@ -247,34 +247,25 @@ def send_otp(email):
     send_mail(subject, message, from_email, recipient_list)
     return otp
 
+
 def signup(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         email = request.POST['mail']
         password = request.POST['pass']
-        submitted_otp = request.POST['otp']  # Add an OTP field to your form
 
-        # Generate and send OTP
-        generated_otp = send_otp(email)
+        # Create a new user
+        user = User.objects.create_user(username=email, password=password)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
 
-        # Check if the submitted OTP matches the generated OTP
-        if submitted_otp == generated_otp:
-            # Create a new user
-            user = User.objects.create_user(username=email, password=password)
-            user.first_name = first_name
-            user.last_name = last_name
-            user.save()
+        # Log in the user
+        login(request, user)
 
-            # Log in the user
-            login(request, user)
-
-            # Redirect to a success page or homepage
-            return redirect('/')
-        else:
-            # OTP is incorrect, you can handle this case as needed
-            error_message = 'Invalid OTP. Please try again.'
-            return render(request, 'signup.html', {'error_message': error_message})
+        # Redirect to a success page or homepage
+        return redirect('/')
 
     # If it's not a POST request, render the signup form
     return render(request, 'signup.html')
