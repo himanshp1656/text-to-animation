@@ -604,10 +604,11 @@ def roadmap(request):
 
         # Initialize OpenAI API client
         openai.api_key = settings.OPENAI_API_KEY
+        print('hey',settings.OPENAI_API_KEY)
 
         # Generate a response from ChatGPT
         response = openai.Completion.create(
-            engine="text-davinci-002",
+            engine="gpt-3.5-turbo",
             prompt=user_input,
             max_tokens=1000
         )
