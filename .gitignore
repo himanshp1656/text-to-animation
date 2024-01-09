@@ -7,7 +7,7 @@
 # *.pyc
 
 # Ignore the Django SQLite database
-# db.sqlite3
+db.sqlite3
 
 # Ignore the .env file (containing sensitive information)
 .env
