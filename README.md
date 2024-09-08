@@ -26,7 +26,7 @@ To set up **HacknChill** on your local machine, follow these steps:
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/your-username/hacknchill.git
+    git clone https://github.com/himanshp1656/text-to-video.git
     ```
 
 2. **Navigate to the Project Directory:**
