@@ -1,12 +1,13 @@
-# HacknChill
+# Text To Animation
 
 ## Overview
 
-**HacknChill** is a Django-based application designed to assist students and educators with the following features:
+**Text to Animation** is a Django-based application designed to assist students and educators with the following features:
 
 1. **Roadmap Visualization:** Generate and display interactive roadmaps for various topics to aid in understanding and planning.
 2. **Text-to-Animation Conversion:** Convert textual notes into engaging animations to enhance learning and make notes more interactive.
 
+![RoadMap Overview](https://github.com/himanshp1656/text-to-animation/tree/main/blob/main/images/roadmap.png)
 ![text to animation  Overview](https://github.com/himanshp1656/text-to-animation/tree/main/blob/main/videos)
 
 ## Features
@@ -21,7 +22,7 @@
 
 ## Installation
 
-To set up **HacknChill** on your local machine, follow these steps:
+To set up **text to animation** on your local machine, follow these steps:
 
 1. **Clone the Repository:**
 
