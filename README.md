@@ -85,7 +85,7 @@ To set up **HacknChill** on your local machine, follow these steps:
 3. Upload the text file and configure animation options.
 4. Convert the text into animations and view or download them.
 
-![Text-to-Animation Example]()
+![Text-to-Animation Example](video/)
 
 ## Contributing
 
