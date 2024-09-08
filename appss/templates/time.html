@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="res/icons/pomoduro.svg" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="application-name" content="POMODURO">
+    <meta name="theme-color" content="#561981">
+    <meta name="description" content="A simple productivity web app.">
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="google" content="nositelinkssearchbox">
+    <meta name="google" content="notranslate">
+    <meta property="og:url" content="https://egargo.github.io/pomoduro">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="POMODURO">
+    <meta property="og:image" content="https://egargo.github.io/pomoduro/preview.png">
+    <meta property="og:image:alt" content="POMODURO">
+    <meta property="og:description" content="A simple productivity web app.">
+    <meta property="og:site_name" content="POMODURO">
+    <meta property="og:locale" content="en">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}" />
+    {% comment %} <link rel="stylesheet" type="text/css" href="src/css/styles.css" /> {% endcomment %}
+    <title>time Management</title>
+
+    <script src="{% static 'js/config.js' %}" type="module"></script>
+    <script src="{% static 'js/settings.js' %}" type="module"></script>
+    <script src="{% static 'js/timer.js' %}" type="module"></script>
+    <script src="{% static 'js/todo.js' %}" type="module"></script>
+</head>
+
+<noscript>POMODURO requires JavaScript to run.</noscript>
+
+<body>
+    <header>
+        <nav id="header">
+            <a id="logo" href="/pomoduro">
+                <img src="{% static 'images/pomodoro.svg' %}">
+                <h1>POMODORO TIMER</h1>
+            </a>
+            <div>
+                <ul>
+                    <li>
+                        <button id="settingsOpen" class="settingsOpenControlButton">⚙️ Settings</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div id="pomodoro-durations">
+            <ul>
+                <li>
+                    <button id="pomodoro-study">💻 Study</button>
+                    <button id="pomodoro-break">☕ Break</button>
+                </li>
+            </ul>
+        </div>
+        <div id="pomoDuro">
+            <span id="pomoduroTimer" name="study"></span>
+            <button id="timerControlButton" type="button">▶️ START</button>
+            <button id="pomodoroStopButton" type="button">⏹️ STOP</button>
+        </div>
+    </main>
+    <div id="duroList">
+        <input id="addTask" type="text" placeholder="Add task" autocomplete="off">
+        <button id="listControlButton">✍️ Add Task</button>
+    </div>
+    <div id="todoListTasks"></div>
+    <div id="settings">
+        <div id="settings-content">
+            <div id="settings-header">
+                <span id="settings-close">&times;</span>
+                <h1>POMODORO Settings</h1>
+            </div>
+            <p id="settings-note">&#8251; Updating the settings will reload the POMODORO TIMER</p>
+            <div id="settings-input">
+                <label>💻 Study time</label>
+                <input id="timeWork" type="number" min="1" step="1" />
+            </div>
+            <div id="settings-input">
+                <label>☕ Break time</label>
+                <input id="timeBreak" type="number" min="1" step="1" />
+            </div>
+            <div>
+                <button id="settingsSave" class="settingsOpenControlButton">💾 Save POMODURO settings</button>
+                <button id="settingsResetPomodoro" class="settingsOpenControlButton">🔄 Reset POMODURO settings</button>
+                <button id="settingsResetTodoList" class="settingsOpenControlButton">🔄 Reset To do list</button>
+            </div>
+            <div id="settings-footer">
+                <div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

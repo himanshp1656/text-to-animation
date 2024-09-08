@@ -1,0 +1,487 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+@font-face {
+    font-family: 'M PLUS Rounded 1c';
+    src: url('../../res/fonts/MPLUSRounded1c-Bold.ttf');
+}
+
+:root {
+    --chinese-black: #121212;
+    --gainsboro: #dbdcdd;
+    --congo-pink: #d82e2e;
+    --white: #ffffff;
+    --cultured: #f6f5f4;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    scrollbar-color: var(--congo-pink) transparent;
+}
+
+html,
+body {
+    align-items: center;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    height: 100%;
+    transition: 1s;
+    user-select: none;
+    width: 100%;
+}
+
+#header {
+    align-items: center;
+    background-color: #f6f5f4;
+    display: flex;
+    padding: 12pt 20pt 12pt 20pt;
+    width: 100%;
+    height: 60px;
+    margin-bottom: 40px;
+    justify-content: space-between;
+}
+
+header {
+    width: 100%;
+}
+
+#header h1 {
+    font-size: 12pt;
+    font-weight: bold;
+    color: var(--chinese-black);
+}
+
+#logo {
+    display: flex;
+    text-decoration: none;
+}
+
+#logo img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5%;
+}
+
+#duroList,
+#todoListTasks,
+main {
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+    max-width: 480px;
+    border-radius: 6px;
+    align-items: center;
+    text-align: center;
+    padding: 30px 0 30px;
+    flex-direction: column;
+    background-color: var(--cultured);
+}
+
+#todoListTasks {
+    padding: 0;
+    height: auto;
+    overflow: auto;
+    background-color: var(--white);
+    border: 0;
+}
+
+.todoListCard {
+    text-align: left;
+    padding: 6%;
+    font-size: 16pt;
+    width: 100%;
+    color: var(--chinese-black);
+    font-weight: bold;
+    border-radius: 2%;
+    margin: 0 0 6px 0;
+    cursor: pointer;
+    background-color: var(--cultured);
+}
+main nav,
+main ul {
+    width: 100%;
+}
+
+#pomoduroTimer {
+    color: var(--chinese-black);
+    font-size: 76pt;
+    display: inline-block;
+    width: 100%;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#pomodoro-durations {
+    width: 100%;
+}
+
+#pomodoroStopButton,
+#timerControlButton {
+    border: 0;
+    width: 200px;
+    cursor: pointer;
+    font-size: 12pt;
+    margin-top: 20px;
+    color: var(--chinese-black);
+    border-radius: 6px;
+    font-weight: bold;
+    padding: 12.2px 20px;
+    background-color: var(--white);
+}
+
+#settingsControlButton {
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--white);
+    font-size: 12pt;
+    padding: 6px 12px;
+    background-color: var(--chinese-black);
+    display: inline-block;
+    margin: 0 2% 2% 0;
+}
+
+#pomodoro-study,
+#pomodoro-break,
+.settingsOpenControlButton {
+    cursor: pointer;
+    border: 0px;
+    border-radius: 6px;
+    font-size: 12px;
+    text-align: center;
+    padding: 6px 16px 6px 16px;
+    height: auto;
+    color: var(--white);
+    background-color: var(--chinese-black);
+    margin: 6px;
+}
+
+#pomodoro-study,
+#pomodoro-break {
+    border: 1px solid var(--gainsboro);
+    color: var(--chinese-black);
+    width: 25%;
+}
+#pomodoro-study {
+    background-color: var(--gainsboro);
+}
+#pomodoro-break {
+    background-color: transparent;
+}
+
+#settings {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(246, 245, 244, 0.5);
+}
+
+#settings-content {
+    border: 1px solid var(--gainsboro);
+    background-color: var(--white);
+    height: fit-content;
+    margin: auto;
+    border-radius: 6px;
+}
+
+#settings-footer {
+    font-size: 12px;
+    padding: 2% 0 2% 0;
+    border-top: 1px solid var(--chinese-black);
+}
+
+#settings-footer a {
+    color: var(--congo-pink);
+}
+
+#settings-footer li + li::before {
+    content: ' | ';
+}
+#settings-footer ul li {
+    display: inline;
+}
+
+#settings-dedication,
+#settings-license {
+    padding: 2% 0 0 0;
+}
+
+#settings-header {
+    border-bottom: 1px solid var(--chinese-black);
+    padding: 0 0 2% 0;
+}
+#settings-header h1 {
+    font-weight: bold;
+    color: var(--chinese-black);
+}
+
+#settings-input {
+    margin: 2% 0 2% 0;
+}
+
+#settings-close {
+    color: var(--congo-pink);
+    float: right;
+    font-weight: bold;
+}
+
+#settings-note {
+    padding: 2% 0 2% 0;
+    color: var(--chinese-black);
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#settings,
+#settings-content {
+    padding: 20px 20px 20px 20px;
+    animation-duration: 0.5s;
+}
+
+#settings-close:hover,
+#settings-lose:focus {
+    color: var(--dark);
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#timeWork,
+#timeBreak {
+    border-radius: 6px;
+    background-color: var(--white);
+    border: 1px solid var(--chinese-black);
+    font-size: 12pt;
+    padding: 12px;
+    box-shadow: none;
+    color: var(--chinese-black);
+    font-weight: bold;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+#duroList {
+    background-color: var(--white);
+    flex-direction: row;
+    background-image: none;
+    border: 0;
+}
+
+#addTask {
+    border: 1px solid var(--chinese-black);
+    border-radius: 6px;
+    width: 70%;
+    font-size: 12pt;
+    font-weight: bold;
+    padding-left: 12px;
+    height: 64px;
+    color: var(--chinese-black);
+}
+::placeholder {
+    color: var(--chinese-black);
+}
+
+#listControlButton {
+    border: 0;
+    border-radius: 6px;
+    color: var(--white);
+    font-size: 10pt;
+    min-width: fit-content;
+    font-weight: bold;
+    width: 25%;
+    background-color: var(--congo-pink);
+    cursor: pointer;
+    height: 64px;
+    margin-left: 5%;
+}
+
+input {
+    outline: none;
+}
+
+label {
+    font-size: 12pt;
+    display: inline-block;
+    color: var(--chinese-black);
+    font-weight: bold;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol,
+ul {
+    list-style: none;
+}
+blockquote,
+q {
+    quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}

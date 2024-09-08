@@ -1,287 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <script src="https://kit.fontawesome.com/fa2575a81c.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+{% load static %}
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-image: radial-gradient(#FAB2FF 30%, #1a04e5b5 70%);
-        }
+        <!--========== BOX ICONS ==========-->
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 
-        .navbar {
-            height: 5rem;
-            background-color: rgba(255, 255, 255, 0.726);
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding-right: 2rem;
-        }
+        <!--========== CSS ==========-->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="icon" type="png" href="{% static 'images/favicon.png' %}">
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+        />
+<style>
 
-        ul {
-            all: unset;
-            display: flex;
-            justify-content: flex-start;
-            gap: 2rem;
-            list-style: none;
-            color: black;
-            margin: 0;
-        }
+</style>
+        <title></title>
+    </head>
+    <body>
+        <!--========== SCROLL TOP ==========-->
+        <a href="#" class="scrolltop" id="scroll-top">
+            <i class='bx bx-up-arrow-alt scrolltop__icon'></i>
+        </a>
+        
+        <!--========== HEADER ==========-->
+        <header class="l-header" id="header">
+            <nav class="nav bd-container">
+                <a href="#" class="nav__logo">Synergy Sphere</a>
 
-        li {
-            list-style: none;
-        }
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
+                        <li class="nav__item"><a href="#share" class="nav__link">Community</a></li>
+                        <li class="nav__item"><a href="#decoration" class="nav__link">Explore</a></li>
+                        <li class="nav__item"><a href="/roadmap" class="nav__link">roadmap</a></li>
+                        <li class="nav__item"><a href="/note_taking" class="nav__link">visualize Notes</a></li>
+                         {% comment %} <li><i class='bx bx-toggle-left change-theme' id="theme-button"></i></li> {% endcomment %}
+                    </ul>
+                </div>
 
-        a {
-            all: unset;
-        }
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-grid-alt'></i>
+                </div>
+            </nav>
+        </header>
 
-        a:hover {
-            cursor: pointer;
-            border-bottom: 2px solid black;
-        }
-
-        .main {
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            gap: 20px;
-            color: white;
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        .card {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            background-color: #1a04e57c;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        /* .right {
-            width: 100%;
-            max-width: 450px;
-            height: 600px;
-            overflow-y: scroll;
-            scroll-margin: 60px;
-            background-color: rgb(56, 56, 56);
-        } */
-        .right {
-    position: fixed;
-    top: 50px; /* Adjust as needed, this is the distance from the top */
-    right: 10px;
-    bottom: 10px; /* Adjust as needed, this is the distance from the bottom */
-    width: 450px;
-    overflow-y: scroll;
-    scroll-margin: 60px;
-    background-color: rgb(56, 56, 56);
-}
-
-
-
-        .icons {
-            display: flex;
-            gap: 15px;
-            margin-left: 2rem;
-        }
-
-        #chat-form {
-            position: fixed;
-            bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding: 20px;
-        }
-
-        #chat-form input {
-            background-color: whitesmoke;
-            width: 100%;
-            height: 30px;
-            padding: 5px 10px;
-            border-radius: 20px;
-            border: none;
-        }
-
-        form button {
-            color: #70F570;
-            background-color: transparent;
-            font-size: 20px;
-            border: none;
-            cursor: pointer;
-        }
-
-        #chat-output {
-            color: white;
-            padding: 10px 15px;
-            margin-top: 10px;
-            margin-bottom: 50px;
-        }
-
-        @media only screen and (min-width: 768px) {
-            .main {
-                flex-direction: row;
-            }
-
-            .right {
-                position: static;
-                width: 60vw;
-            }
-        }
-
-        @media only screen and (max-width: 768px) {
-            .navbar {
-                padding-right: 1rem;
-            }
-
-            .main {
-                padding: 10px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="navbar">
-        <nav>
-            <ul>
-                <li>
-                    <a href="/">home</a>
-                </li>
-                <li>
-                    <a href="/search/">search teacher</a>
-                </li>
-                <li>
-                    <a href="/roadmap/">roadmap</a>
-                </li>
-                <li>
-                    <a href="/teachersubmit">become a teacher</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-<!-- <div class="nav">
-    <nav>
-        <form action="/search/" method="post">
-        {% csrf_token %}
-
-        <div class="header">
-            <div class="search">
-                <input id="search"  name="search" type="text">
-                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i>  search</button>
-            </form>
-            </div>
-        </div>
-    </nav>
-</div> -->
-
-
-<div class="main">
-    <div class="left">
-        <div class="cards">
-            {% for teacher in teacherlist %}
-            <div class="card animate__animated animate__slideInDown">
-					<div class="name">
-                        <h3 style="color: rgb(24, 179, 240);">{{ teacher.name }}</h3>
-                        <h4 style="color: #1e1c1cd7;">{{ teacher.email }}</h3>
+        <main class="l-main">
+            <!--========== HOME ==========-->
+            <section class="home" id="home">
+                <div class="home__container bd-container bd-grid">
+                    <div class="home__img">
+                        <img src="{% static 'images/home.png' %}" alt="">
                     </div>
-                    <!-- <div class="email">12345@gmail.com</div> -->
-                    <div class="data">
-                        <div class="img">
-                            <div class="profile-image">
-                                <a href="{{ teacher.url }}"><img src="{{ teacher.profile_image }}" alt="{{ teacher.name }}" loading="lazy" style="border-radius: 50%;"></a>
-                            </div>
-                        </div>
-                        <div class="bio">
-                            {{ teacher.description }}
-                           </div>
+
+                    <div class="home__data">
+                        <h1 class="home__title">Empowering Minds, Energizing Bodies, Enriching Lives</h1>
+                        <p class="home__description">Welcome to Synergy Sphere, your all-in-one platform for academic success, physical well-being, financial guidance, and vibrant community engagement.</p>
+                        <a href="/pages/Login/log.html" class="button">Get Started</a>
+                    </div>   
+                </div>
+            </section>
+
+            <!--========== SHARE ==========-->
+            <section class="share section bd-container" id="share">
+                <div class="share__container bd-grid">
+                    <div class="share__data">
+                        <h2 class="section-title-center">Sharing Is The Best Gift <br> You Can Give</h2>
+                        <p class="share__description">Engage in discussions, share knowledge, and access valuable resources for holistic growth and support.</p>
+                        <a href="#" class="button">Join a community</a>
                     </div>
-                    <div class="icons">
-                        <div class="icon">
-                            <i class="fa-solid fa-map-location-dot"></i>
-                            <h4>{{ teacher.location }}</h4>
-                        </div>
-                        
-                        <div class="icon">
-                            <!-- <i class="fa-solid fa-map-location-dot"></i> -->
-                            <!-- <i class="fa-solid fa-dollar-sign"></i> -->
-                            <h4>{{ teacher.charge }}</h4>
-                        </div>
-                        
-                        <div class="icon">
-                            <i class="fa-solid fa-laptop"></i>
-                            <!-- <i class="fa-solid fa-map-location-dot"></i> -->
-                            <h4>{{ teacher.online }}</h4>
-                        </div>
-                        
-                        <div class="icon">
-                            <!-- <i class="fa-solid fa-map-location-dot"></i> -->
-                            <i class="fa-solid fa-chalkboard-user"></i>
-                            <h4>{{ teacher.total }}</h4>
-                        </div>
+
+                    <div class="share__img">
+                        <img src="{% static 'images/shared.png' %}"alt="">
                     </div>
-				</div>
-                {% endfor %}
-			</div>
-		</div>
-		<!-- <div class="right">
-            <div class="data">
-                <div id="chat-output"></div>
-            <form id="chat-form">
-                <input type="text" id="user-input" placeholder="Type your message...">
-                <button type="submit"><i class="fa-solid fa-paper-plane" ></i></button>
-            </form> -->
-           <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const form = document.querySelector('#chat-form');
-                const userInput = document.querySelector('#user-input');
-                const chatOutput = document.querySelector('#chat-output');
+                </div>
+            </section>
+
+            <!--========== FEATURES ==========-->
+            <section class="decoration section bd-container" id="decoration">
+                <h2 class="section-title">Unleash Your Potential with <br> Our Comprehensive Toolkit for Success</h2>
+                <div class="decoration__container bd-grid">
+                    <div class="decoration__data">
+                        <img src="{% static 'images/decoration1.png' %}" alt="" class="decoration__img">
+                        <h3 class="decoration__title">Time Craft</h3>
+                        <a href="/optimize/" class="button button-link">Optmize Your Day</a>
+                    </div>
+
+                    <div class="decoration__data">
+                        <img src="{% static 'images/decoration2.png' %}" alt="" class="decoration__img">
+                        <h3 class="decoration__title">Brain Boost</h3>
+                        <a href="#" class="button button-link">Strengthen Your Mind</a>
+                    </div>
+
+                    <div class="decoration__data">
+                        <img src="{% static 'images/decoration3.png' %}"alt="" class="decoration__img">
+                        <h3 class="decoration__title">Budget Buddy</h3>
+                        <a href="/expense/" class="button button-link">Track Your Expense</a>
+                    </div>
+                </div>
+            </section>
+
             
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const inputText = userInput.value.trim();
-                    if (inputText === '') return;
-            
-                    // Send user input to the Django view
-                    fetch(`/chat_with_gpt/?user_input=${encodeURIComponent(inputText)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            const responseText = data.response;
-                            chatOutput.innerHTML += `<p><strong>You:</strong> ${inputText}</p>`;
-                            chatOutput.innerHTML += `<p><strong>BOT:</strong> ${responseText}</p>`;
-                            userInput.value = '';
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                });
-            });
-            </script>
+            <script>
+                var acc = document.getElementsByClassName("accordion");
+                var i;
+          
+                for (i = 0; i < acc.length; i++) {
+                  acc[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    this.parentElement.classList.toggle("active");
+          
+                    var pannel = this.nextElementSibling;
+          
+                    if (pannel.style.display === "block") {
+                      pannel.style.display = "none";
+                    } else {
+                      pannel.style.display = "block";
+                    }
+                  });
+                }
+              </script>
+        </main>
 
+        <!--========== FOOTER ==========-->
+        <footer class="footer section">
+          <div class="footer__container bd-container bd-grid">
+              <div class="footer__content">
+                  <h3 class="footer__title">
+                      <a href="#" class="footer__logo">Synergy Sphere</a>
+                  </h3>
+                  <p class="footer__description">Discover, <br> Learn, <br>Thrive!</p>
+              </div>
 
+              <div class="footer__content">
+                  <h3 class="footer__title">Our Services</h3>
+                  <ul>
+                      <li><a href="#" class="footer__link">Time Management Tools </a></li>
+                      <li><a href="#" class="footer__link">Mental Wellness Support</a></li>
+                      <li><a href="#" class="footer__link">Finance Tracking</a></li>
+                      <li><a href="#" class="footer__link">Community Engagement</a></li>
+                  </ul>
+              </div>
 
+              <div class="footer__content">
+                  <h3 class="footer__title">Our Company</h3>
+                  <ul>
+                    <li><a href="#" class="footer__link">Blog</a></li>
+                    <li><a href="#" class="footer__link">About us</a></li>
+                    <li><a href="#" class="footer__link">Our mision</a></li>
+                  </ul>
+              </div>
 
-            </div>
-            <!-- <div class="data_input">
-                <input type="text">
-                <button><i class="fa-solid fa-paper-plane"></i></button>
-            </div> -->
+              <div class="footer__content">
+                  <h3 class="footer__title">Social</h3>
+                  <a href="#" class="footer__social"><i class='bx bxl-facebook-circle '></i></a>
+                  <a href="#" class="footer__social"><i class='bx bxl-twitter'></i></a>
+                  <a href="#" class="footer__social"><i class='bx bxl-instagram-alt'></i></a>
+              </div>
+          </div>
+      </footer>
 
-		</div>
-	</div>
-</body>
+        <!--========== SCROLL REVEAL ==========-->
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+        <!--========== MAIN JS ==========-->
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
 </html>
