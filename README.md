@@ -7,7 +7,7 @@
 1. **Roadmap Visualization:** Generate and display interactive roadmaps for various topics to aid in understanding and planning.
 2. **Text-to-Animation Conversion:** Convert textual notes into engaging animations to enhance learning and make notes more interactive.
 
-![text to animation  Overview](https://github.com/himanshp1656/text-to-video/tree/main/blob/main/videos)
+![text to animation  Overview](https://github.com/himanshp1656/text-to-animation/tree/main/blob/main/videos)
 
 ## Features
 
@@ -26,7 +26,7 @@ To set up **HacknChill** on your local machine, follow these steps:
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/himanshp1656/text-to-video.git
+    git clone https://github.com/himanshp1656/text-to-animation.git
     ```
 
 2. **Navigate to the Project Directory:**
@@ -85,7 +85,7 @@ To set up **HacknChill** on your local machine, follow these steps:
 3. Upload the text file and configure animation options.
 4. Convert the text into animations and view or download them.
 
-![Text-to-Animation Example](https://github.com/himanshp1656/text-to-video/tree/main/blob/main/videos)
+![Text-to-Animation Example](https://github.com/himanshp1656/text-to-animation/tree/main/blob/main/videos)
 
 ## Contributing
 
